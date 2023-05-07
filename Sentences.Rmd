@@ -1,0 +1,28 @@
+---
+title: "Digital Art"
+author: "Leonard-Allen"
+date: "2023-05-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Sentences
+
+This code will randomly select a subject, verb, and object from the lists and combine them into a sentence. You can also modify the lists or add more lists to generate more complex sentences.
+
+```{r}
+# create a list of subjects, verbs, and objects
+subjects <- c("I", "You", "He", "She", "They")
+verbs <- c("eat", "sleep", "run", "play", "study")
+objects <- c("pizza", "music", "football", "books", "games")
+
+# generate a random sentence
+paste(sample(subjects, 1), sample(verbs, 1), sample(objects, 1))
+
+
+```
+
+
