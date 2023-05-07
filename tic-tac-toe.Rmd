@@ -1,0 +1,121 @@
+---
+title: "Tic-Tac-Toe"
+author: "Leonard-Allen"
+date: "2023-05-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Here's an example code that demonstrates how to create a simple tic-tac-toe game in R:
+
+```{r}
+# Define the game board
+board <- matrix(0, nrow = 3, ncol = 3)
+
+# Define the function to print the game board
+print_board <- function(board) {
+  for (i in 1:nrow(board)) {
+    row_str <- ""
+    for (j in 1:ncol(board)) {
+      if (board[i, j] == 0) {
+        row_str <- paste0(row_str, "  ")
+      } else if (board[i, j] == 1) {
+        row_str <- paste0(row_str, "X ")
+      } else {
+        row_str <- paste0(row_str, "O ")
+      }
+    }
+    cat(row_str, "\n")
+  }
+}
+
+# Define the function to check if the game is over
+check_game_over <- function(board) {
+  # Check rows
+  for (i in 1:nrow(board)) {
+    if (all(board[i,] == 1)) {
+      return("X")
+    } else if (all(board[i,] == 2)) {
+      return("O")
+    }
+  }
+  
+  # Check columns
+  for (j in 1:ncol(board)) {
+    if (all(board[,j] == 1)) {
+      return("X")
+    } else if (all(board[,j] == 2)) {
+      return("O")
+    }
+  }
+  
+  # Check diagonals
+  if (all(diag(board) == 1) || all(diag(board[,ncol(board):1]) == 1)) {
+    return("X")
+  } else if (all(diag(board) == 2) || all(diag(board[,ncol(board):1]) == 2)) {
+    return("O")
+  }
+  
+  # Check if the game is a draw
+  if (all(board != 0)) {
+    return("draw")
+  }
+  
+  # Otherwise, the game is not over yet
+  return(NULL)
+}
+
+# Define the function to play the game
+play_game <- function() {
+  # Initialize the game board
+  board <- matrix(0, nrow = 3, ncol = 3)
+  
+  # Initialize the player
+  player <- 1
+  
+  # Play the game
+  while (TRUE) {
+    # Print the game board
+    print_board(board)
+    
+    # Get the player's move
+    move <- readline(paste0("Player ", player, ", enter your move (row,col): "))
+    move <- strsplit(move, ",")[[1]]
+    row <- as.integer(move[1])
+    col <- as.integer(move[2])
+    
+    # Make the move
+    if (board[row, col] == 0) {
+      board[row, col] <- player
+    } else {
+      cat("Invalid move. Please try again.\n")
+      next
+    }
+    
+    # Check if the game is over
+    result <- check_game_over(board)
+    if (!is.null(result)) {
+      print_board(board)
+      if (result == "draw") {
+        cat("The game is a draw!\n")
+      } else {
+        cat("Player ", result, " wins!\n")
+      }
+      break
+    }
+    
+    # Switch to the other player
+    player <- ifelse(player == 1, 2, 1)
+  }
+}
+
+# Play the game
+play_game()
+
+```
+
