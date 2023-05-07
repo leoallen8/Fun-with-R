@@ -1,5 +1,5 @@
 ---
-title: "Digital Art"
+title: "Sentences"
 author: "Leonard-Allen"
 date: "2023-05-07"
 output: html_document
