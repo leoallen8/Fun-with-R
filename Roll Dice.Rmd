@@ -1,0 +1,56 @@
+---
+title: "Rolling Dice"
+author: "Leonard-Allen"
+date: "2023-05-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Dice Game
+This game simulates rolling a dice and adding the number rolled to the player's score. The player can choose to roll again or hold their current score. The game ends when the player reaches a score of 20 or higher, or if they roll a 1 and lose their turn.
+
+```{r}
+# function to simulate rolling a dice
+roll_dice <- function() {
+  return(sample(1:6, 1, replace = TRUE))
+}
+
+# set the player's score to 0
+player_score <- 0
+
+# loop to play the game
+while (player_score < 20) {
+  # roll the dice
+  roll <- roll_dice()
+  
+  # if the roll is 1, the player loses their turn and their score goes back to 0
+  if (roll == 1) {
+    player_score <- 0
+    message("You rolled a 1 and lost your turn. Your score is now 0.")
+    break
+  }
+  
+  # add the roll to the player's score
+  player_score <- player_score + roll
+  
+  # ask the player if they want to roll again or hold
+  message("You rolled a", roll, ". Your current score is", player_score)
+  choice <- readline(prompt = "Roll again (r) or hold (h)? ")
+  
+  # if the player chooses to hold, their turn ends and their score is saved
+  if (choice == "h") {
+    message("Your turn ends. Your score is", player_score)
+    break
+  }
+}
+
+# if the player reaches a score of 20 or higher, they win
+if (player_score >= 20) {
+  message("Congratulations! You win with a score of", player_score)
+}
+
+```
+
